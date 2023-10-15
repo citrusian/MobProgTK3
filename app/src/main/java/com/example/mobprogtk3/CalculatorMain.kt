@@ -1,6 +1,5 @@
 package com.example.mobprogtk3
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,11 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.example.mobprogtk3.ui.theme.PurpleGrey40
 import com.example.mobprogtk3.ui.theme.md_theme_light_surfaceTint
-import kotlin.reflect.KFunction2
 
 
 @Composable
@@ -56,7 +52,6 @@ fun Calculator(
             .fillMaxSize()
             .fillMaxWidth()
         ,
-//        contentAlignment = Alignment.BottomCenter,
 
     ){
         Column(
@@ -84,9 +79,6 @@ fun Calculator(
                 )
             }
 
-            // Unused, for backup
-            val horizontalScale = 1.0f // -
-            val verticalScale = 1.0f   // |
             Column(
                 modifier = Modifier
                     // Scale the whole Column
@@ -340,8 +332,6 @@ fun Calculator(
                             .weight(1f),
                         onClick = {
                             // Do Nothing
-//                            calculatorVisibilityViewModel.isCalculatorVisible = true
-//                            Log.d("DEBUG VISIBILITY", "isCalculatorVisible: ${calculatorVisibilityViewModel.isCalculatorVisible}")
                         }
                     )
                     CalculatorButton(

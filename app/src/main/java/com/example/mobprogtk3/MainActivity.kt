@@ -2,7 +2,6 @@ package com.example.mobprogtk3
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -20,15 +19,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -59,10 +57,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 )
                 {
-                    // test using viewmodel for visibility val
+                    // Using ViewModel to store visibility data
                     var calculatorVisibilityViewModel = viewModel<CalculatorVisibilityViewModel>()
 
-                    // Combine Preview and Real Content
+                    // Function to be called by both preview and output
                     MainContent(calculatorVisibilityViewModel)
                 }
             }
@@ -77,7 +75,6 @@ fun MainContent(calculatorVisibilityViewModel: CalculatorVisibilityViewModel) {
     val sqliteHelper = remember { SQLiteHelper(context) }
     val state = viewModel.state
     val buttonSpacing = 8.dp
-//    var isCalculatorVisible by remember { mutableStateOf(calculatorVisibilityViewModel.isCalculatorVisible) }
 
     if (calculatorVisibilityViewModel.isCalculatorVisible.value) {
         Calculator(
@@ -116,6 +113,10 @@ fun SavedValue(
     onLaporanClick: () -> Unit,
     sqliteHelper: SQLiteHelper
 ) {
+    val screenHeight = LocalConfiguration.current.screenHeightDp
+    val headerFS = with(LocalDensity.current) { (screenHeight / 7).toSp() }
+    val s1FS = with(LocalDensity.current) { (screenHeight / 9).toSp() }
+    val textFS = with(LocalDensity.current) { (screenHeight / 11).toSp() }
     Box(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -134,11 +135,11 @@ fun SavedValue(
                         .padding(10.dp)
                     ,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 25.sp,
+                    fontSize = headerFS,
                     color = Color.White,
                 )
 
-                // Display Last value (10, can be changed)
+                // Display Last value (10, Hardcoded)
                 SavedValues(sqliteHelper)
 
                 // Navigation
@@ -176,6 +177,9 @@ fun SavedValue(
 @Composable
 fun SavedValues(sqliteHelper: SQLiteHelper) {
     val values = remember { mutableStateListOf<String>() }
+    val screenHeight = LocalConfiguration.current.screenHeightDp
+    val s1FS = with(LocalDensity.current) { (screenHeight / 9).toSp() }
+    val textFS = with(LocalDensity.current) { (screenHeight / 11).toSp() }
 
     LaunchedEffect(Unit) {
         val db = sqliteHelper.readableDatabase
@@ -206,7 +210,7 @@ fun SavedValues(sqliteHelper: SQLiteHelper) {
         Text(
             text = "10 Angka Terakhir:",
             fontWeight = FontWeight.Bold,
-            fontSize = 24.sp,
+            fontSize = (s1FS) ,
             color = Color.White,
             modifier = Modifier.padding(10.dp)
         )
@@ -214,9 +218,10 @@ fun SavedValues(sqliteHelper: SQLiteHelper) {
             Text(
                 text = value,
                 fontWeight = FontWeight.Normal,
-                fontSize = 16.sp,
+                fontSize = textFS,
                 color = Color.White,
-                modifier = Modifier.padding(5.dp)
+                modifier = Modifier
+                    .padding(10.dp,5.dp)
             )
         }
     }
