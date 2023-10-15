@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+app/debug/app-debug.aab
+app/release/app-release.apk
+app/release/app-release.aab
+app/release/output-metadata.json

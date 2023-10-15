@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
 class CalculatorVisibilityViewModel : ViewModel() {
-    private val _isCalculatorVisible = mutableStateOf(false)
+    private val _isCalculatorVisible = mutableStateOf(true)
     val isCalculatorVisible: State<Boolean> = _isCalculatorVisible
 
     fun setCalculatorVisibility(isVisible: Boolean) {
