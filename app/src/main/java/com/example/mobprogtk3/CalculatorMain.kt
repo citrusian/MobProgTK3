@@ -1,5 +1,6 @@
 package com.example.mobprogtk3
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,9 +39,11 @@ fun Calculator(
     state: CalculatorState,
     modifier: Modifier = Modifier,
     buttonSpacing: Dp = 8.dp,
-    onAction: (CalculatorActions) -> Unit
+    onAction: (CalculatorActions) -> Unit,
+    calculatorVisibilityViewModel: CalculatorVisibilityViewModel,
 ) {
 
+    var isCalculatorVisible by remember { mutableStateOf(calculatorVisibilityViewModel.isCalculatorVisible) }
     // Get and Set screen size for text output
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     // 0.2f fits perfectly on test
@@ -332,7 +339,9 @@ fun Calculator(
                             .aspectRatio(2f)
                             .weight(1f),
                         onClick = {
-                            onAction(CalculatorActions.Home)
+                            // Do Nothing
+//                            calculatorVisibilityViewModel.isCalculatorVisible = true
+//                            Log.d("DEBUG VISIBILITY", "isCalculatorVisible: ${calculatorVisibilityViewModel.isCalculatorVisible}")
                         }
                     )
                     CalculatorButton(
@@ -342,7 +351,8 @@ fun Calculator(
                             .aspectRatio(2f)
                             .weight(1f),
                         onClick = {
-                            onAction(CalculatorActions.Report)
+                            // Change Visibility
+                            calculatorVisibilityViewModel.setCalculatorVisibility(false)
                         }
                     )
                     val context = LocalContext.current

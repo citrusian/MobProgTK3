@@ -11,7 +11,9 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 
-class CalculatorViewModel: ViewModel() {
+class CalculatorViewModel(
+//    private val calculatorVisibilityViewModel: CalculatorVisibilityViewModel
+): ViewModel() {
     var state by mutableStateOf(CalculatorState())
         private set
 
@@ -23,16 +25,18 @@ class CalculatorViewModel: ViewModel() {
             is CalculatorActions.Operation -> enterOperation(action.operation)
             is CalculatorActions.Calculate -> performCalculation()
             is CalculatorActions.Delete -> performDeletion()
-            is CalculatorActions.Home -> state = CalculatorState()
+            is CalculatorActions.Home -> showCalculator()
             is CalculatorActions.Report -> showReport()
             is CalculatorActions.Save -> performSave(action.context)
         }
     }
 
-
+    private fun showCalculator() {
+//        calculatorVisibilityViewModel.isCalculatorVisible = true
+    }
 
     private fun showReport() {
-//        navController.navigate("report_screen")
+//        calculatorVisibilityViewModel.isCalculatorVisible = false
     }
 
 
