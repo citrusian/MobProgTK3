@@ -4,6 +4,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.mobprogtk3.database.SQLiteHelper
+import android.content.Context
+import android.util.Log
+import androidx.compose.runtime.setValue
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 
 class CalculatorViewModel: ViewModel() {
     var state by mutableStateOf(CalculatorState())
@@ -17,11 +23,33 @@ class CalculatorViewModel: ViewModel() {
             is CalculatorActions.Operation -> enterOperation(action.operation)
             is CalculatorActions.Calculate -> performCalculation()
             is CalculatorActions.Delete -> performDeletion()
-            is CalculatorActions.home -> state = CalculatorState()
-            is CalculatorActions.report -> state = CalculatorState()
-            is CalculatorActions.save -> state = CalculatorState()
+            is CalculatorActions.Home -> state = CalculatorState()
+            is CalculatorActions.Report -> showReport()
+            is CalculatorActions.Save -> performSave(action.context)
         }
     }
+
+
+
+    private fun showReport() {
+//        navController.navigate("report_screen")
+    }
+
+
+    private fun performSave(context: Context) {
+        Log.d("SAVE DB", "performSave Called")
+        if (state.number1.isNotBlank() && state.operation == null) {
+            val result = state.number1
+            SQLiteHelper(context).dbSave(result)
+            Log.d("SAVE DB", "SQLiteHelper Pass")
+            state = state.copy(
+                number1 = "",
+                number2 = "",
+                operation = null
+            )
+        }
+    }
+
 
     private fun performDeletion() {
         when {

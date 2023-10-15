@@ -16,13 +16,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.mobprogtk3.ui.theme.PurpleGrey40
 import com.example.mobprogtk3.ui.theme.md_theme_light_surfaceTint
+import kotlin.reflect.KFunction2
 
 
 @Composable
@@ -328,7 +332,7 @@ fun Calculator(
                             .aspectRatio(2f)
                             .weight(1f),
                         onClick = {
-                            onAction(CalculatorActions.home)
+                            onAction(CalculatorActions.Home)
                         }
                     )
                     CalculatorButton(
@@ -338,9 +342,10 @@ fun Calculator(
                             .aspectRatio(2f)
                             .weight(1f),
                         onClick = {
-                            onAction(CalculatorActions.report)
+                            onAction(CalculatorActions.Report)
                         }
                     )
+                    val context = LocalContext.current
                     CalculatorButton(
                         symbols = "Simpan",
                         modifier = Modifier
@@ -348,7 +353,7 @@ fun Calculator(
                             .aspectRatio(2f)
                             .weight(1f),
                         onClick = {
-                            onAction(CalculatorActions.report)
+                            onAction(CalculatorActions.Save(context))
                         }
                     )
                 }
