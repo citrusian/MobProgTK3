@@ -80,5 +80,6 @@ dependencies {
     // Glide Manual https://central.sonatype.com/artifact/com.github.bumptech.glide/compose?smo=true
 //    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
     implementation("io.coil-kt:coil-compose:1.4.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
 
 }
