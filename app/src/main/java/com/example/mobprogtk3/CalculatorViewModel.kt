@@ -19,6 +19,7 @@ class CalculatorViewModel: ViewModel() {
             is CalculatorActions.Delete -> performDeletion()
             is CalculatorActions.home -> state = CalculatorState()
             is CalculatorActions.report -> state = CalculatorState()
+            is CalculatorActions.save -> state = CalculatorState()
         }
     }
 
@@ -55,7 +56,7 @@ class CalculatorViewModel: ViewModel() {
                 result.toString()
             }
 
-            // Set number 1 as result, and clear the number 2 and operation
+            // Set number1 as result, then clear the number2 and operation
             state = state.copy(
                 number1 = decimalFlag.take(15),
                 number2 = "",

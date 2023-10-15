@@ -8,5 +8,6 @@ sealed class CalculatorActions {
     object Calculate: CalculatorActions()
     object home: CalculatorActions()
     object report: CalculatorActions()
+    object save: CalculatorActions()
     data class Operation(val operation: CalculatorOperation): CalculatorActions()
 }
