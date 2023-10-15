@@ -68,7 +68,7 @@ class MainActivity : ComponentActivity() {
             MobProgTK3Theme {
                 Surface(
                     modifier = Modifier
-                        //.fillMaxSize()
+                        .fillMaxSize()
                     ,
                     color = MaterialTheme.colorScheme.background
                 )
@@ -112,7 +112,7 @@ fun Calculator(
             verticalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
             Text(
-                text = state.number1 + (state.operation ?: "") + state.number2,
+                text = state.number1 + (state.operation?.symbols ?: "") + state.number2,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -370,7 +370,7 @@ fun Calculator(
                         .background(Color.DarkGray)
                         .aspectRatio(2f)
                         // weight used to calculate WH for bigger button
-                        .weight(2f),
+                        .weight(1f),
                     onClick = {
                         onAction(CalculatorActions.home)
                     }
@@ -379,7 +379,7 @@ fun Calculator(
                     symbols = "Laporan",
                     modifier = Modifier
                         .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .aspectRatio(2f)
                         // weight used to calculate WH for bigger button
                         .weight(1f),
                     onClick = {
