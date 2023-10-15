@@ -12,7 +12,7 @@ class CalculatorViewModel: ViewModel() {
     fun onAction(action: CalculatorActions){
         when(action){
             is CalculatorActions.Number -> enterNumber(action.number)
-            is CalculatorActions.Decimal -> enterDeciman()
+            is CalculatorActions.Decimal -> enterDecimal()
             is CalculatorActions.Clear -> state = CalculatorState()
             is CalculatorActions.Operation -> enterOperation(action.operation)
             is CalculatorActions.Calculate -> performCalculation()
@@ -49,9 +49,15 @@ class CalculatorViewModel: ViewModel() {
                 null -> return
             }
 
+            val decimalFlag = if (result.rem(1.0) == 0.0) {
+                result.toInt().toString()
+            } else {
+                result.toString()
+            }
+
             // Set number 1 as result, and clear the number 2 and operation
             state = state.copy(
-                number1 = result.toString().take(15),
+                number1 = decimalFlag.take(15),
                 number2 = "",
                 operation = null
             )
@@ -65,7 +71,7 @@ class CalculatorViewModel: ViewModel() {
 
     }
 
-    private fun enterDeciman() {
+    private fun enterDecimal() {
         if(state.operation == null
             && !state.number1.contains(".")
             && state.number1.isNotBlank()

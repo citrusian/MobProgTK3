@@ -10,6 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.sp
 import java.text.DateFormatSymbols
 
@@ -19,6 +21,8 @@ fun CalculatorButton(
     modifier: Modifier,
     onClick: () -> Unit
 ) {
+    val screenHeight = LocalConfiguration.current.screenHeightDp
+    val fontSize = with(LocalDensity.current) { (screenHeight / 12).toSp() } // Adjust the denominator as needed
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -28,10 +32,8 @@ fun CalculatorButton(
     ){
         Text(
             text = symbols,
-            fontSize = 36.sp,
-//            color = MaterialTheme.color.***,
-            color = Color.White
+            fontSize = fontSize,
+            color = Color.White,
         )
     }
-
 }
