@@ -38,7 +38,7 @@ class CalculatorViewModel: ViewModel() {
 
     private fun performCalculation() {
         val number1 = state.number1.toDoubleOrNull()
-        val number2 = state.number1.toDoubleOrNull()
+        val number2 = state.number2.toDoubleOrNull()
         if (number1 != null && number2 != null){
             val result = when(state.operation){
                 is CalculatorOperation.Add -> number1 + number2
